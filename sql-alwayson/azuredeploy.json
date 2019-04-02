@@ -51,7 +51,7 @@
         "Standard_DS14_v2",
         "Standard_DS15_v2"
       ],
-      "defaultValue": "Standard_DS2_v2"
+      "defaultValue": "Standard_DS2_v3"
     },
     "sqlVmImagePublisher": {
       "type": "string",
@@ -63,7 +63,7 @@
     },
     "sqlVmImageSku": {
       "type": "string",
-      "defaultValue": "Enterprise"
+      "defaultValue": "Standard"
     }
   },
   "variables": {
@@ -87,7 +87,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('diagStorageAccountName')]",
-      "apiVersion": "2016-01-01",
+      "apiVersion": "2018-03-28",
       "location": "[resourceGroup().location]",
       "sku": {
         "name": "Standard_LRS"
@@ -98,7 +98,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('cloudWitnessStorageAccountName')]",
-      "apiVersion": "2016-01-01",
+      "apiVersion": "2018-03-28",
       "location": "[resourceGroup().location]",
       "sku": {
         "name": "Standard_LRS"
@@ -351,8 +351,8 @@
             "ClusterName": "SQLClusterAG",
             "ClusterOwnerNode": "[concat(variables('SqlVmPrefix'), '0')]",
             "ClusterIP": "[parameters('clusterIpAddress')]",
-            "witnessStorageBlobEndpoint": "[reference(variables('cloudWitnessStorageAccountName'), '2016-01-01').primaryEndpoints.blob]",
-            "witnessStorageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('cloudWitnessStorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+            "witnessStorageBlobEndpoint": "[reference(variables('cloudWitnessStorageAccountName'), '2018-03-28').primaryEndpoints.blob]",
+            "witnessStorageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('cloudWitnessStorageAccountName')), '2018-03-28']"
           }
         },
         "protectedSettings": {
